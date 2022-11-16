@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { drawChart } from "../components/charts/BasicD3";
+import { drawChart, initChart } from "../components/charts/BasicD3";
 
 const dataset = [
   [10, 30, 40, 20],
@@ -15,12 +15,19 @@ export const Home = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    drawChart(400, 600);
+    initChart(400, 600);
+    changeChart();
   }, []);
+
+  const changeChart = () => {
+    drawChart(400, 600, dataset[i++]);
+    if (i === dataset.length) i = 0;
+  };
   return (
-    <div>
+    <div className="App">
       <h1>Home</h1>
       <h4>Graphs for D3 with react</h4>
+      <button onClick={changeChart}>Change Data</button>
       <div id="chart"></div>
     </div>
   );
